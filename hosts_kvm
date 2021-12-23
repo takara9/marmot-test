@@ -1,0 +1,22 @@
+###
+### ノードのリストとアクセス方法
+###
+
+# for KVM
+test1       ansible_ssh_host=172.16.0.101  ansible_ssh_private_key_file=/root/.ssh/id_rsa
+test2       ansible_ssh_host=172.16.0.102  ansible_ssh_private_key_file=/root/.ssh/id_rsa
+
+[tests]
+test[1:2]
+
+
+###
+### プレイブックに与える変数
+###
+[all:vars]
+
+# Sample 変数
+base_dir = "/home/ubuntu/"
+
+
+

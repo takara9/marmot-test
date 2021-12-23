@@ -1,0 +1,9 @@
+- name: install master
+  hosts: all
+  become: true
+  gather_facts: yes
+  tasks:
+    - debug: msg="{{ ansible_facts.hostname }}"	   
+  roles:
+    - sample
+
