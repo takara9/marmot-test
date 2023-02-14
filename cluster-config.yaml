@@ -37,23 +37,27 @@ cluster_name: vm
 
 ### Master, Worker, Internal/Frontend Loadbalancer and bootnode
 vm_spec:
-  - name: "test1"
+  - name: "server1"
     cpu: 2
     memory: 4096
     private_ip: "172.16.0.101"
     public_ip:  "192.168.1.201"
     storage:
-    - 50
+    - name: hdd1
+      size: 50
+      path: /stg2
     playbook: install.yaml
     comment: "Test node #1"
 
-#  - name: "test2"
-#    cpu: 1
-#    memory: 2048
-#    private_ip: "172.16.0.102"
-#    #public_ip:  "192.168.1.202"    
-#    storage:
-#    - 10
-#    playbook: install.yaml    
-#    comment: "Test node #2"
+  - name: "server2"
+    cpu: 1
+    memory: 2048
+    private_ip: "172.16.0.102"
+    #public_ip:  "192.168.1.202"    
+    storage:
+    - name: hdd1
+      size: 50
+      path: /stg2
+    playbook: install.yaml    
+    comment: "Test node #2"
 

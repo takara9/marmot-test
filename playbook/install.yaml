@@ -2,8 +2,14 @@
   hosts: all
   become: true
   gather_facts: yes
+  vars:
+    public_ip_dns: 192.168.1.8
+    cluster_admin: ubuntu
+    shared_fs: /srv
+    sw_container_fs: False  
   tasks:
     - debug: msg="{{ ansible_facts.hostname }}"	   
   roles:
     - sample
-
+    - base_linux
+    
