@@ -3,7 +3,7 @@
   become: true
   gather_facts: yes
   vars:
-    public_ip_dns: 192.168.1.8
+    public_ip_dns: 192.168.1.4
     cluster_admin: ubuntu
     shared_fs: /srv
     sw_container_fs: False  

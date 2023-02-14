@@ -105,8 +105,6 @@
     group: root
     mode: '0644'
 
-
-
 #
 # 管理ユーザーをrootグループへ追加
 #
@@ -136,44 +134,13 @@
     mode: '0440'
 
 
+#
+# SSHの設定
+#
 - debug: msg="{{ ansible_facts.virtualization_type }}"
-#
-# SSH鍵の共有
-#
-- name: SSH KEY FOR VAGRANT
-  include_tasks: sshkey-sharing-vagrant.yaml
-  when: ansible_facts.virtualization_type == "virtualbox"
-
 - name: SSH-KEY FOR QEMU/KVM
   include_tasks: sshkey-sharing-kvm.yaml
   when: ansible_facts.virtualization_type == "kvm"
-
-
-#
-# Vagrant時のコンテナ用のファイルシステム
-#
-- name: Create Container filesystem for Vagrant
-  filesystem:
-    fstype: ext4
-    dev: /dev/sdc
-  when: sw_container_fs == True and ansible_facts.devices.sdc is defined
-    
-- name: Create mount point for Vagrant
-  file:
-    path: /var/lib/containerd
-    owner: root
-    group: root
-    mode: '0755'
-    state: directory
-  when: sw_container_fs == True and ansible_facts.devices.sdc is defined
-
-- name: Mount device by /dev/sdc for Vagrant
-  mount:
-    path: /var/lib/containerd
-    src:  /dev/sdc
-    fstype: ext4
-    state: mounted
-  when: sw_container_fs == True and ansible_facts.devices.sdc is defined
 
 
 #
@@ -203,3 +170,5 @@
   when: sw_container_fs == True and ansible_facts.devices.vdb is defined
 
 
+- name: NFS MOUNT
+  include_tasks: nfs-mount.yaml
