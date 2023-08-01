@@ -12,4 +12,3 @@
     path: "/nfs"
     fstype: nfs
     state: mounted
- 

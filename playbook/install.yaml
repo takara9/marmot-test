@@ -3,13 +3,12 @@
   become: true
   gather_facts: yes
   vars:
-    public_ip_dns: 192.168.1.4
+    ca_server: 192.168.1.8
+    public_ip_dns: 192.168.1.9
     cluster_admin: ubuntu
-    shared_fs: /srv
-    sw_container_fs: False  
+    sw_container_fs: True
   tasks:
-    - debug: msg="{{ ansible_facts.hostname }}"	   
+    - debug: msg="{{ ansible_facts.hostname }}"
   roles:
-    - sample
     - base_linux
-    
+    - serf

@@ -1,12 +1,12 @@
 #
 # プライベートCA証明書の取得
 #
-#- name: Download CA pem
-#  get_url:
-#    url: "https://{{ public_ip_dns }}/ca.pem"
-#    dest: /etc/ssl/certs/labo_local_ca.pem
-#    validate_certs: no
-#    mode: 0440
+- name: Download CA pem
+  get_url:
+    url: "https://{{ ca_server }}/ca.pem"
+    dest: /etc/ssl/certs/labo_local_ca.pem
+    validate_certs: no
+    mode: 0440
 
 #
 # Ubuntu の 自動アップデートを禁止する
@@ -37,6 +37,8 @@
     ln -sf ../run/systemd/resolve/resolv.conf resolv.conf
   args:
     chdir: /etc
+
+
 
 #
 # リスタート　systemctl restart systemd-resolved
@@ -151,7 +153,7 @@
     fstype: ext4
     dev: /dev/vdb
   when: sw_container_fs == True and ansible_facts.devices.vdb is defined
-    
+
 - name: Create mount point for QEMU/KVM
   file:
     path: /var/lib/containerd
