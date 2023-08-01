@@ -1,0 +1,13 @@
+# Generate by mactl gen-inv
+
+localhost   ansible_connection=local
+
+
+[nodes]
+localhost
+
+
+[all:vars]
+master_node      =  192.168.1.9
+
+

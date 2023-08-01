@@ -6,7 +6,7 @@ server4  ansible_ssh_host=172.16.99.104  ansible_ssh_private_key_file=~/.ssh/id_
 
 
 [all:vars]
-
 master_node      =  172.16.99.101
+
 
 
