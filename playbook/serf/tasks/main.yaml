@@ -4,19 +4,19 @@
 
 - name: Check serf bin
   stat:
-    path: "/nfs/download/serf_{{ serf_version }}_linux_amd64.zip"
+    path: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
   register: file_cerf
 
 - name: Download serf
   get_url:
     url: "https://releases.hashicorp.com/serf/{{ serf_version }}/serf_{{ serf_version }}_linux_amd64.zip"
-    dest: "/nfs/download/serf_{{ serf_version }}_linux_amd64.zip"
+    dest: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
     mode: 0440
   when: file_cerf.stat.exists == False
 
 - name: Unarchive a file that needs to be downloaded (added in 2.0)
   ansible.builtin.unarchive:
-    src: "/nfs/download/serf_{{ serf_version }}_linux_amd64.zip"
+    src: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
     dest: /usr/local/bin
     remote_src: yes
 
