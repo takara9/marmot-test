@@ -1,32 +1,44 @@
 #
-# 最小構成のJenkins
+# Nested VM
 #
 domain: labo.local
-os_variant:  ubuntu20.04
+os_variant:  ubuntu22.04
 
 cluster_name: test
 vm_spec:
   - name: "server1"
-    cpu: 1
-    memory: 1024
+    cpu: 8
+    memory: 32784
     private_ip: "172.16.99.101"
+    storage:
+    - name: /dev/vdb
+      size: 100
+      vg:   vg1
+    - name: /dev/vdc
+      size: 100
+      vg:   vg2
+    - name: /dev/vdd
+      size: 100
+      vg:   vg3
     playbook: install.yaml
     comment: "Test node #1"
-  - name: "server2"
-    cpu: 1
-    memory: 1024
-    private_ip: "172.16.99.102"
-    playbook: install.yaml
-    comment: "Test node #2"
-  - name: "server3"
-    cpu: 1
-    memory: 1024
-    private_ip: "172.16.99.103"
-    playbook: install.yaml
-    comment: "Test node #3"
-  - name: "server4"
-    cpu: 1
-    memory: 1024
-    private_ip: "172.16.99.104"
-    playbook: install.yaml
-    comment: "Test node #4"
+
+
+#  - name: "server2"
+#    cpu: 1
+#    memory: 1024
+#    private_ip: "172.16.99.102"
+#    playbook: install.yaml
+#    comment: "Test node #2"
+#  - name: "server3"
+#    cpu: 1
+#    memory: 1024
+#    private_ip: "172.16.99.103"
+#    playbook: install.yaml
+#    comment: "Test node #3"
+#  - name: "server4"
+#    cpu: 1
+#    memory: 1024
+#    private_ip: "172.16.99.104"
+#    playbook: install.yaml
+#    comment: "Test node #4"

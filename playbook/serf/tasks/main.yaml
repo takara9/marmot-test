@@ -1,24 +1,46 @@
-#
-# Download Serf
-#
-
+##
+## Download Serf
+##
+##
+## x86-64
+##
 - name: Check serf bin
   stat:
     path: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
-  register: file_cerf
-
+  register: file_cerf_amd64
 - name: Download serf
   get_url:
     url: "https://releases.hashicorp.com/serf/{{ serf_version }}/serf_{{ serf_version }}_linux_amd64.zip"
     dest: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
     mode: 0440
-  when: file_cerf.stat.exists == False
+  when: file_cerf_amd64.stat.exists == False and ansible_facts.architecture == "x86_64"
 
 - name: Unarchive a file that needs to be downloaded (added in 2.0)
   ansible.builtin.unarchive:
     src: "{{ download_dir }}/serf_{{ serf_version }}_linux_amd64.zip"
     dest: /usr/local/bin
     remote_src: yes
+  when: ansible_facts.architecture == "x86_64"
+
+##
+## arm
+##
+- name: Check serf bin
+  stat:
+    path: "{{ download_dir }}/serf_{{ serf_version }}_linux_arm.zip"
+  register: file_cerf_arm
+- name: Download serf
+  get_url:
+    url: "https://releases.hashicorp.com/serf/{{ serf_version }}/serf_{{ serf_version }}_linux_arm.zip"
+    dest: "{{ download_dir }}/serf_{{ serf_version }}_linux_arm.zip"
+    mode: 0440
+  when: file_cerf_arm.stat.exists == False and ansible_facts.architecture == "armv6l"
+- name: Unarchive a file that needs to be downloaded (added in 2.0)
+  ansible.builtin.unarchive:
+    src: "{{ download_dir }}/serf_{{ serf_version }}_linux_arm.zip"
+    dest: /usr/local/bin
+    remote_src: yes
+  when: ansible_facts.architecture == "armv6l"
 
 
 - name: mkdir /etc/serf

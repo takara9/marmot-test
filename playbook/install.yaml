@@ -6,9 +6,11 @@
     ca_server: 192.168.1.8
     public_ip_dns: 192.168.1.9
     cluster_admin: ubuntu
-    sw_container_fs: True
+    sw_container_fs: False
+    prevent_download: True
+    download_dir: /nfs/download
   tasks:
     - debug: msg="{{ ansible_facts.hostname }}"
   roles:
     - base_linux
-    - serf
+    #- serf
